@@ -1,5 +1,5 @@
-export const ProductList = () => {
+export const ProductList = ({ apiPath }) => {
     return (
-        <main>ProductsList</main>
+        <main>ProductsList: {apiPath}</main>
     )
 }
