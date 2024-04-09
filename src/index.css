@@ -19,3 +19,7 @@ code {
 header {
   min-height: 8vh;
 }
+
+main {
+  min-height: 84vh;
+}
