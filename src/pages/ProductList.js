@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react"
 import { ProductCard } from "../components/ProductCard"
 import { useFetch } from "../hooks/useFetch"
 
