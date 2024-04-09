@@ -1,4 +1,4 @@
-export const ProductsList = () => {
+export const ProductList = () => {
     return (
         <main>ProductsList</main>
     )
