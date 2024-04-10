@@ -1,4 +1,8 @@
-export const ProductCard = ({ product }) => {
+import { useState } from "react";
+
+export const ProductCard = ({ product, cart, setCart }) => {
+
+    // product thumbnail styles
     const imgStyle = (url) => {
         const style = {
             width: '384px',
@@ -10,29 +14,38 @@ export const ProductCard = ({ product }) => {
         return style;
     }
 
-    // {`width: 286px; height:270px; background-size: cover; background-position: center; background: url('${product.thumbnail}')`}
+    // add to cart button styles
+    const addBtnStyle = "bg-blue-700 hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+    const addedBtnStyle = "bg-red-700 hover:bg-red-800 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+
+    // check if the product is already in the cart or not
+    const checkProductAlreadyInCart = cart.find(item => item.id === product.id)
+    const [isInCart, setIsInCart] = useState(checkProductAlreadyInCart ? true : false)
+
+    // handle add to cart button
+    function handleAddToCart() {
+        if (isInCart) {
+            const filteredCart = cart.filter(item => item.id !== product.id)
+            setCart(filteredCart)
+        } else {
+            setCart([...cart, product])
+        }
+        setIsInCart(!isInCart);
+    }
+
     return (
         <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-            <div className="rounded-lg" style={imgStyle(product.thumbnail)}>
-                {/* <img className="rounded-t-lg" src={product.thumbnail} alt="" style="width: 286px; height:270px; background-size: cover; background-position: center;" /> */}
-            </div>
+            <div className="rounded-lg" style={imgStyle(product.thumbnail)}></div>
             <div className="p-5 flex flex-col justify-between min-h-60">
                 <div>
-                    <a href="#">
-                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{product.title}</h5>
-                    </a>
+                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{product.title}</h5>
                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{product.description}</p>
                 </div>
                 <div>
-                    <a href="#">
-                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">${product.price}</h5>
-                    </a>
-                    <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Add to cart
-                        <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                        </svg>
-                    </a>
+                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">${product.price}</h5>
+                    <button onClick={handleAddToCart} className={`inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none ${isInCart ? addedBtnStyle : addBtnStyle}`}>
+                        <p>{(isInCart) ? 'Added' : 'Add to cart'}</p>
+                    </button>
                 </div>
             </div>
         </div>

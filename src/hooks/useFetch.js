@@ -12,7 +12,5 @@ export const useFetch = (apiPath) => {
         fetchData()
     }, [apiPath])
 
-    console.log(data);
-
     return { data }
 }
