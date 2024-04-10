@@ -1,20 +1,16 @@
 import { useEffect, useState } from "react"
 import { CartItem } from "../components"
-import { type } from "@testing-library/user-event/dist/type"
 
 export const Cart = ({ cart, setCart }) => {
-
-    console.log(cart)
-
     const [totalPrice, setTotalPrice] = useState(0)
 
     useEffect(() => {
+        let currentPrice = 0
         cart.forEach(product => {
-            console.log(typeof (product.price))
-            setTotalPrice(totalPrice + product.price)
+            currentPrice += product.price
         });
+        setTotalPrice(currentPrice);
     }, [cart])
-
 
     return (
         <main>
