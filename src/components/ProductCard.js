@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { useCart } from "../context/CartContext";
 
-export const ProductCard = ({ product, cart, setCart }) => {
+export const ProductCard = ({ product }) => {
 
     // product thumbnail styles
     const imgStyle = (url) => {
@@ -18,6 +19,9 @@ export const ProductCard = ({ product, cart, setCart }) => {
     const addBtnStyle = "bg-blue-700 hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
     const addedBtnStyle = "bg-red-700 hover:bg-red-800 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
 
+    // use cart context
+    const { cart, addToCart, removeFromCart } = useCart()
+
     // check if the product is already in the cart or not
     const checkProductAlreadyInCart = cart.find(item => item.id === product.id)
     const [isInCart, setIsInCart] = useState(checkProductAlreadyInCart ? true : false)
@@ -25,10 +29,12 @@ export const ProductCard = ({ product, cart, setCart }) => {
     // handle add to cart button
     function handleAddToCart() {
         if (isInCart) {
-            const filteredCart = cart.filter(item => item.id !== product.id)
-            setCart(filteredCart)
+            removeFromCart(product)
+            // const filteredCart = cart.filter(item => item.id !== product.id)
+            // setCart(filteredCart)
         } else {
-            setCart([...cart, product])
+            // setCart([...cart, product])
+            addToCart(product)
         }
         setIsInCart(!isInCart);
     }
@@ -44,7 +50,7 @@ export const ProductCard = ({ product, cart, setCart }) => {
                 <div>
                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">${product.price}</h5>
                     <button onClick={handleAddToCart} className={`inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none ${isInCart ? addedBtnStyle : addBtnStyle}`}>
-                        <p>{(isInCart) ? 'Added' : 'Add to cart'}</p>
+                        <p>{(isInCart) ? 'Remove' : 'Add to cart'}</p>
                     </button>
                 </div>
             </div>
