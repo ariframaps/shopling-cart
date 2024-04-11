@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AllRoutes } from "./Routes/AllRoutes";
 import { Header, Footer } from './components'
 
 function App() {
-  const [cart, setCart] = useState([])
+  const isLocalStorageExist = localStorage.getItem('cinemate-cart');
+  const [cart, setCart] = useState(isLocalStorageExist ? JSON.parse(isLocalStorageExist) : []);
+
+  useEffect(() => {
+    localStorage.setItem('cinemate-cart', JSON.stringify(cart))
+  }, [cart])
 
   return (
     <div className="App dark:bg-gray-700">
