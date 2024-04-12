@@ -1,10 +1,12 @@
 import { createContext, useContext, useReducer } from "react"
 import { CartReducer } from "../reducer/CartReducer";
 
-const initialState = {
+let initialState = {
     cart: [],
-    total: 0
 }
+
+const localStorageCart = JSON.parse(localStorage.getItem('cinemate-cart'));
+if (localStorageCart) initialState.cart = localStorageCart;
 
 const CartContext = createContext(initialState);
 
@@ -15,6 +17,7 @@ export const CartProvider = ({ children }) => {
     const addToCart = (product) => {
         const newCart = state.cart.concat(product)
         updateTotal(newCart)
+        localStorage.setItem('cinemate-cart', JSON.stringify(newCart))
 
         dispatch({
             type: 'ADD_TO_CART',
@@ -27,6 +30,7 @@ export const CartProvider = ({ children }) => {
     const removeFromCart = (product) => {
         const newCart = state.cart.filter(item => item.id !== product.id)
         updateTotal(newCart)
+        localStorage.setItem('cinemate-cart', JSON.stringify(newCart))
 
         dispatch({
             type: 'REMOVE_FROM_CART',
@@ -52,7 +56,7 @@ export const CartProvider = ({ children }) => {
         cart: state.cart,
         total: state.total,
         addToCart,
-        removeFromCart
+        removeFromCart,
     }
 
     return (
