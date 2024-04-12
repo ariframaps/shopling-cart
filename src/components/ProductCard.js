@@ -28,14 +28,7 @@ export const ProductCard = ({ product }) => {
 
     // handle add to cart button
     function handleAddToCart() {
-        if (isInCart) {
-            removeFromCart(product)
-            // const filteredCart = cart.filter(item => item.id !== product.id)
-            // setCart(filteredCart)
-        } else {
-            // setCart([...cart, product])
-            addToCart(product)
-        }
+        isInCart ? removeFromCart(product) : addToCart(product);
         setIsInCart(!isInCart);
     }
 

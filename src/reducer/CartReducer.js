@@ -1,5 +1,3 @@
-import React from 'react'
-
 export const CartReducer = (state, action) => {
     const { type, payload } = action
 

@@ -4,8 +4,6 @@ export const CartItem = ({ item }) => {
     const { removeFromCart } = useCart()
 
     function handleRemove() {
-        // const filteredCart = cart.filter(cartItem => cartItem.id !== item.id)
-        // setCart(filteredCart)
         removeFromCart(item)
     }
 

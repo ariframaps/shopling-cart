@@ -2,7 +2,6 @@ import { CartItem } from "../components"
 import { useCart } from "../context/CartContext"
 
 export const Cart = () => {
-
     const { cart, total } = useCart()
 
     return (

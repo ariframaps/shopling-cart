@@ -15,12 +15,7 @@ export const Header = () => {
 
     useEffect(() => {
         localStorage.setItem('shoplingDarkMode', JSON.stringify(darkMode));
-
-        if (darkMode) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark')
-        }
+        darkMode ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark')
     }, [darkMode])
 
     return (
