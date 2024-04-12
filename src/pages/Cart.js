@@ -1,24 +1,17 @@
-import { useEffect, useState } from "react"
 import { CartItem } from "../components"
+import { useCart } from "../context/CartContext"
 
-export const Cart = ({ cart, setCart }) => {
-    const [totalPrice, setTotalPrice] = useState(0)
+export const Cart = () => {
 
-    useEffect(() => {
-        let currentPrice = 0
-        cart.forEach(product => {
-            currentPrice += product.price
-        });
-        setTotalPrice(currentPrice);
-    }, [cart])
+    const { cart, total } = useCart()
 
     return (
         <main>
             <div className="my-10">
-                <p className="text-xl font-medium text-gray-900 truncate dark:text-white text-center">Total: ${totalPrice}</p>
+                <p className="text-xl font-medium text-gray-900 truncate dark:text-white text-center">Total: ${total}</p>
                 <ul className="max-w-4xl divide-y divide-gray-200 dark:divide-gray-500 m-auto">
                     {cart ? cart.map(item => (
-                        <CartItem key={item.id} item={item} cart={cart} setCart={setCart} />
+                        <CartItem key={item.id} item={item} />
                     )) : ''}
                 </ul>
 
