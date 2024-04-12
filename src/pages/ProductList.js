@@ -1,8 +1,17 @@
 import { ProductCard } from "../components/ProductCard"
 import { useFetch } from "../hooks/useFetch"
+import { useCart } from "../context/CartContext";
+import { useEffect } from "react";
+
 
 export const ProductList = ({ apiPath }) => {
     const { data: products } = useFetch(apiPath)
+
+    const { cart } = useCart()
+
+    useEffect(() => {
+        console.log(cart)
+    }, [cart])
 
     return (
         <main>
